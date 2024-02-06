@@ -28,7 +28,7 @@ public class singup extends AppCompatActivity {
         goLoginTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(singup.this, Manifest.class));
+                startActivity(new Intent(singup.this,MainActivity.class));
             }
         });
 

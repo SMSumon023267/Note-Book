@@ -19,7 +19,7 @@ public class ForgetPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         goBackToLoginActivityTextView = (TextView) findViewById(R.id.go_BackToLoginActivity_TextView_ID);
         passwordRecoverButton = (Button) findViewById(R.id.passwordRecover_Button_ID);
@@ -28,7 +28,7 @@ public class ForgetPassword extends AppCompatActivity {
         goBackToLoginActivityTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ForgetPassword.this, Manifest.class));
+                startActivity(new Intent(ForgetPassword.this,MainActivity.class));
             }
         });
 

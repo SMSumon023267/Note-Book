@@ -68,6 +68,7 @@
             android:text="Log In"
             />
         <TextView
+            android:layout_marginTop="20dp"
             android:id="@+id/forgetPassword_TextView_ID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,6 +77,7 @@
             android:textStyle="bold"
             android:textSize="20dp"
             android:gravity="center"
+            android:clickable="true"
             />
         <Button
             android:id="@+id/newUserSingIn_Button_ID"
