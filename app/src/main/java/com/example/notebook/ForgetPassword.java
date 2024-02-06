@@ -22,6 +22,8 @@ public class ForgetPassword extends AppCompatActivity {
         getSupportActionBar().hide();
 
         goBackToLoginActivityTextView = (TextView) findViewById(R.id.go_BackToLoginActivity_TextView_ID);
+        passwordRecoverButton = (Button) findViewById(R.id.passwordRecover_Button_ID);
+        emailForgetPasswordEditText = (EditText) findViewById(R.id.email_ForgetPassword_EditText_ID);
 
         goBackToLoginActivityTextView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -33,7 +33,7 @@
             android:gravity="center"
             />
         <EditText
-            android:id="@+id/email_SingUp_ID"
+            android:id="@+id/emailSingUp_EditText_ID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -45,7 +45,7 @@
             android:textColor="@color/black"
             />
         <EditText
-            android:id="@+id/password_SingUp_ID"
+            android:id="@+id/passwordSingUpEditText_ID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -64,9 +64,10 @@
             android:layout_marginRight="30dp"
             android:backgroundTint="@color/black"
             android:textColor="@color/white"
-            android:text="Log In"
+            android:text="Sing Up"
             />
         <TextView
+            android:id="@+id/gotLoginActivity_TextView_ID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -75,7 +76,6 @@
             android:text="Want to Login ?"
             android:gravity="center"
             android:layout_marginTop="20dp"
-
             />
 
 
