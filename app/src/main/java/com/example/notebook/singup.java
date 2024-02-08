@@ -77,7 +77,7 @@ public class singup extends AppCompatActivity {
                                         firebaseAuth.signOut();
                                         finish();
                                         startActivity(new Intent(singup.this,MainActivity.class));
-                                    } 
+                                    }
                                 });
                             }else {
                                 Toast.makeText(singup.this,"Failed send Email Verification!",Toast.LENGTH_SHORT).show();
