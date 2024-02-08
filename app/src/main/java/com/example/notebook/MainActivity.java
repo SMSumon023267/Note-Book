@@ -9,16 +9,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
     private EditText emailloginEditText,passwordloginEditText;
     private Button loginButton,newUserSingInButton;
 
     private TextView forgetPasswordTextView;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        firebaseAuth = FirebaseAuth.getInstance();
         emailloginEditText = (EditText) findViewById(R.id.emailloginMailActivity_EditText_ID);
         passwordloginEditText = (EditText) findViewById(R.id.passwordloginMailActivity_EditText_ID);
         loginButton = (Button) findViewById(R.id.loginButton_ID);
