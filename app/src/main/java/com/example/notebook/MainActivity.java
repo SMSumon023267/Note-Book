@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView forgetPasswordTextView;
     private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser!=null){
+            finish();
+            startActivity(new Intent(MainActivity.this,NoteActivity.class));
+        }
+
+
         emailloginEditText = (EditText) findViewById(R.id.emailloginMailActivity_EditText_ID);
         passwordloginEditText = (EditText) findViewById(R.id.passwordloginMailActivity_EditText_ID);
         loginButton = (Button) findViewById(R.id.loginButton_ID);
