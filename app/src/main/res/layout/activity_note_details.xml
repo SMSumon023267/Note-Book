@@ -30,7 +30,7 @@
 
 
     </androidx.appcompat.widget.Toolbar>
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="15dp"
@@ -38,8 +38,7 @@
         android:textStyle="bold"
         android:gravity="left|right"
         android:textColor="@color/black"
-        android:hint="Enter your note Title here"
-        android:id="@+id/contentFontNoteDetails_EditText_ID"
+        android:id="@+id/contentFontNoteDetails_TextView_ID"
         android:layout_below="@+id/toolBarOfNoteDetails_ID"
         android:textColorHint="@color/black"
         />

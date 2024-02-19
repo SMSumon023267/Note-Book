@@ -102,11 +102,12 @@ public class NoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         PopupMenu popupMenu =new PopupMenu(v.getContext(),v);
-                        popupMenu.setGravity(Gravity.END);
+                        //popupMenu.setGravity(Gravity.END);
                         popupMenu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(@NonNull MenuItem item) {
-                                startActivity(new Intent(NoteActivity.this,EdiTNoteActivity.class));
+                                Intent intent =new Intent(v.getContext(),EdiTNoteActivity.class);
+                                v.getContext().startActivity(intent);
                                 return false;
                             }
                         });
@@ -115,10 +116,13 @@ public class NoteActivity extends AppCompatActivity {
                             public boolean onMenuItemClick(@NonNull MenuItem item) {
                                 Toast.makeText(NoteActivity.this,"This is Note is Deleted  "+  model.getTitle(),Toast.LENGTH_SHORT).show();
 
-                                //startActivity(new Intent(NoteActivity.this,EdiTNoteActivity.class));
+//                                Intent intent =new Intent(v.getContext(),EdiTNoteActivity.class);
+//                                v.getContext().startActivity(intent);
+//
                                 return false;
                             }
                         });
+                        popupMenu.show();
                     }
                 });
 
@@ -193,7 +197,7 @@ public class NoteActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         if (noteAdapter!=null){
-            noteAdapter.startListening();
+            //noteAdapter.stopListening();
         }
     }
     public int getRandomcolor(){

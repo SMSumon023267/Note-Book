@@ -42,6 +42,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:src="@drawable/baseline_more_vert_24"
+                    android:clickable="true"
+                    android:padding="20dp"
                     />
 
 
