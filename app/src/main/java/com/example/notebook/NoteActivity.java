@@ -24,9 +24,12 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -90,10 +93,26 @@ public class NoteActivity extends AppCompatActivity {
                 int colorcode = getRandomcolor();
                 holder.linearLayoutNote.setBackgroundColor(holder.itemView.getResources().getColor(colorcode,null));
 
+                holder.noteTitle.setText(model.getTitle());
+                holder.noteContent.setText(model.getContent());
+
+                String docId = noteAdapter.getSnapshots().getSnapshot(position).getId();
+
+
+
+
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(NoteActivity.this,NoteDetails.class));
+                        Intent intent = new Intent(v.getContext(),NoteDetails.class);
+                        intent.putExtra("title",model.getTitle());
+                        intent.putExtra("content",model.getContent());
+                        intent.putExtra("noteID",docId);
+
+                        v.getContext().startActivity(intent);
+
+
+
                         Toast.makeText(NoteActivity.this,"This is clicked  "+  model.getTitle(),Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -107,6 +126,9 @@ public class NoteActivity extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(@NonNull MenuItem item) {
                                 Intent intent =new Intent(v.getContext(),EdiTNoteActivity.class);
+                                intent.putExtra("title",model.getTitle());
+                                intent.putExtra("content",model.getContent());
+                                intent.putExtra("noteID",docId);
                                 v.getContext().startActivity(intent);
                                 return false;
                             }
@@ -114,21 +136,29 @@ public class NoteActivity extends AppCompatActivity {
                         popupMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(@NonNull MenuItem item) {
-                                Toast.makeText(NoteActivity.this,"This is Note is Deleted  "+  model.getTitle(),Toast.LENGTH_SHORT).show();
 
-//                                Intent intent =new Intent(v.getContext(),EdiTNoteActivity.class);
-//                                v.getContext().startActivity(intent);
-//
-                                return false;
+                                DocumentReference documentReference  =firebaseFirestore.collection("notes")
+                                        .document(firebaseUser.getUid()).collection("myNotes").document(docId);
+                                documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(NoteActivity.this,"This is Note is Deleted  "+  model.getTitle(),Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(NoteActivity.this,"Failed to  Delete "+ model.getTitle(),Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+                                return true;
                             }
                         });
                         popupMenu.show();
                     }
                 });
 
-
-                holder.noteTitle.setText(model.getTitle());
-                holder.noteContent.setText(model.getContent());
 
 
             }
@@ -193,13 +223,13 @@ public class NoteActivity extends AppCompatActivity {
         noteAdapter.startListening();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (noteAdapter!=null){
-            //noteAdapter.stopListening();
-        }
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        if (noteAdapter!=null){
+//            noteAdapter.stopListening();
+//        }
+//    }
     public int getRandomcolor(){
         List<Integer>colorcode=new ArrayList<>();
         colorcode.add(R.color.color1);
