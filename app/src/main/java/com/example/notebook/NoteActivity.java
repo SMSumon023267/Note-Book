@@ -1,11 +1,13 @@
 package com.example.notebook;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -23,6 +26,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class NoteActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
@@ -68,8 +75,21 @@ public class NoteActivity extends AppCompatActivity {
                 .setQuery(query,firebasemodel.class).build();
 
         noteAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allUserNotes) {
+
+
             @Override
             protected void onBindViewHolder(@NonNull NoteViewHolder holder, int position, @NonNull firebasemodel model) {
+                int colorcode = getRandomcolor();
+                holder.linearLayoutNote.setBackgroundColor(holder.itemView.getResources().getColor(colorcode,null));
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(NoteActivity.this,"This is clicked  "+  model.getTitle(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
                 holder.noteTitle.setText(model.getTitle());
                 holder.noteContent.setText(model.getContent());
 
@@ -79,6 +99,7 @@ public class NoteActivity extends AppCompatActivity {
             @NonNull
             @Override
             public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_layout,parent,false);
                 return new NoteViewHolder(view);
 
@@ -87,7 +108,7 @@ public class NoteActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView_ID);
         recyclerView.setHasFixedSize(true);
-        staggeredGridLayoutManager =new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
+        staggeredGridLayoutManager =new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
         recyclerView.setAdapter(noteAdapter);
@@ -141,5 +162,23 @@ public class NoteActivity extends AppCompatActivity {
         if (noteAdapter!=null){
             noteAdapter.startListening();
         }
+    }
+    public int getRandomcolor(){
+        List<Integer>colorcode=new ArrayList<>();
+        colorcode.add(R.color.color1);
+        colorcode.add(R.color.color2);
+        colorcode.add(R.color.color3);
+        colorcode.add(R.color.color4);
+        colorcode.add(R.color.color5);
+        colorcode.add(R.color.color6);
+        colorcode.add(R.color.color7);
+        colorcode.add(R.color.color8);
+        colorcode.add(R.color.color9);
+        colorcode.add(R.color.color10);
+
+        Random random =new Random();
+        int numberColor = random.nextInt(colorcode.size());
+        return colorcode.get(numberColor);
+
     }
 }
